@@ -1,0 +1,67 @@
+trigger: none
+
+variables:
+- group: ci-cd-variables
+- name: imageRepository
+  value: votingops/result
+- name: dockerfilePath
+  value: $(Build.SourcesDirectory)/result/Dockerfile
+- name: environment
+  value: staging
+
+stages:
+
+# ================= BUILD & PUSH =================
+
+- stage: build_and_push_image
+  displayName: Build and Push Docker Image (result)
+  jobs:
+  - job: build
+    displayName: Build and Push
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - checkout: self
+
+    - task: Docker@2
+      displayName: Build and Push Docker Image (result)
+      inputs:
+        containerRegistry: '$(containerregistryserviceconnection)'
+        repository: '$(imageRepository)'
+        command: 'buildAndPush'
+        Dockerfile: '$(dockerfilePath)'
+        tags: |
+          $(Build.BuildId)
+          latest
+
+- stage: Update_values
+  displayName: Update values.yaml
+  dependsOn: build_and_push_image
+  jobs:
+  - job: update
+    displayName: update
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - checkout: self
+
+    - task: Bash@3
+      displayName: Update values.yaml
+      inputs:
+        targetType: inline
+        script: |
+          git clone https://$pat_token@$azure_devops_org_url/_git/$azure_repo_name_gitops repo
+          cd repo
+          git config user.email "$git_email"
+          git config user.name "$git_name"
+          sed -i "s|tag:.*|tag: $(Build.BuildId)|" $app_name/charts/values.yaml
+          git add $app_name/charts/values.yaml
+          git commit -m "update $app_name image tag to $(Build.BuildId)" || echo "No changes to commit"
+          git push origin HEAD:main
+      env:
+        pat_token: $(pat_token)
+        azure_devops_org_url: $(azure_devops_org_url)
+        azure_repo_name_gitops: $(azure_repo_name_gitops)
+        git_email: $(git_email)
+        git_name: $(git_name)
+        app_name: result

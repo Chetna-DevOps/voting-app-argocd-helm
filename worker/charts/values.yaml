@@ -1,0 +1,10 @@
+# Configuration values used by Helm templates
+
+replicaCount: 1
+
+image:
+  repository: <ACR_LOGIN_SERVER>/votingops/worker
+  tag: 423
+  pullPolicy: Always
+
+

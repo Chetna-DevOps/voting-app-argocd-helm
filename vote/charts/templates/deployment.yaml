@@ -1,0 +1,38 @@
+# Defines how the application container runs in Kubernetes (pods, replicas, image)
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "vote.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "vote.name" . }}
+    helm.sh/chart: {{ include "vote.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "vote.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "vote.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+
+    spec:
+      imagePullSecrets:
+        - name: acr-secret
+
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.targetPort }}
+              protocol: TCP
