@@ -1,6 +1,6 @@
 # Voting App — ArgoCD + Helm on AKS
 
-This is the third iteration of my voting app deployment series, combining ArgoCD (GitOps) with Helm charts for a production-grade deployment on AKS.
+This is the third iteration of my voting app deployment series, combining ArgoCD (GitOps) with Helm charts for the deployment on AKS.
 
 ## Previous Projects
 - [ArgoCD + plain manifests](https://github.com/ChetnaPanday/voting-app-aks-argocd)
