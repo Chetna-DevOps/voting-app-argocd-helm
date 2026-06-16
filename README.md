@@ -56,7 +56,7 @@ Code push → Azure DevOps (build + update values.yaml) → ArgoCD → AKS
 - Create variable group `ci-cd-variables` in Azure DevOps Library with: `containerregistryserviceconnection`, `acr_login_server`, `aksClusterName`, `resourceGroup`, `pat_token`, `azure_devops_org_url`, `azure_repo_name_gitops`, `git_email`, `git_name`
 - Create ACR pull secret in the cluster: `kubectl create secret docker-registry acr-secret ...  -n staging`
 - Deploy Redis and PostgreSQL via ArgoCD using Bitnami charts
-- Update `<YOUR-CLUSTER-IP>` & `<ACR_LOGIN_SERVER>` in values.yaml for vote, result & worker apps.
+- Replace `<ACR_LOGIN_SERVER>` and `<YOUR-CLUSTER-IP>` in each `values.yaml`
 - Point ArgoCD apps to `vote/charts`, `result/charts`, `worker/charts` with auto-sync enabled
 
 ## App URLs
