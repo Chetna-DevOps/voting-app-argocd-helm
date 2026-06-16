@@ -19,7 +19,7 @@ Code push → Azure DevOps (build + update values.yaml) → ArgoCD → AKS
 - **Vote frontend** — Python (Flask) — lets users vote between two options
 - **Result frontend** — Node.js — shows live voting results
 - **Worker** — C# (.NET) — consumes votes from Redis and stores in PostgreSQL
-- **Queue** — Redis (Bitnami Helm chart)
+- **Redis** — Bitnami Helm chart
 - **Database** — PostgreSQL (Bitnami Helm chart)
 - **Registry** — Azure Container Registry (ACR)
 - **Ingress** — NGINX on AKS
