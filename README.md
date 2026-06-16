@@ -2,6 +2,10 @@
 
 This is the third iteration of my voting app deployment series, combining ArgoCD (GitOps) with Helm charts for the deployment on AKS.
 
+## Credits
+
+Base application from [dockersamples/example-voting-app](https://github.com/dockersamples/example-voting-app).
+
 ## Previous Projects
 - [ArgoCD + plain manifests](https://github.com/Chetna-DevOps/voting-app-aks-argocd)
 - [Helm + Azure DevOps CD](https://github.com/Chetna-DevOps/voting-app-aks-helm)
@@ -61,11 +65,6 @@ Code push → Azure DevOps (build + update values.yaml) → ArgoCD → AKS
 http://vote-argo-helm.<CLUSTER-IP>.nip.io
 http://result-argo-helm.<CLUSTER-IP>.nip.io
 ```
-
-## Credits
-
-Base application from [dockersamples/example-voting-app](https://github.com/dockersamples/example-voting-app).
-
 ## What I Did
 
 - Created Helm charts for all three custom services
