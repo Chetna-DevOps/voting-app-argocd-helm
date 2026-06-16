@@ -3,8 +3,8 @@
 This is the third iteration of my voting app deployment series, combining ArgoCD (GitOps) with Helm charts for the deployment on AKS.
 
 ## Previous Projects
-- [ArgoCD + plain manifests](https://github.com/ChetnaPanday/voting-app-aks-argocd)
-- [Helm + Azure DevOps CD](https://github.com/ChetnaPanday/voting-app-aks-helm)
+- [ArgoCD + plain manifests](https://github.com/Chetna-DevOps/voting-app-aks-argocd)
+- [Helm + Azure DevOps CD](https://github.com/Chetna-DevOps/voting-app-aks-helm)
 
 ## How It Works
 
